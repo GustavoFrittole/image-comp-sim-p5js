@@ -152,15 +152,19 @@ function predictorDraw()
 
 function handleFile(file) 
 {
-  s.img = loadImage(file.data, 
-    (newImg) =>
-    {
-    s.img = newImg;
-    predictorDraw();
-    s.info.html("Change the image by dropping a new one on the canvas.");
-    }, 
-    () => s.info.html("Chosen file is not a valid image.")
-  );
+  if(file.type === "image")
+  {
+    s.img = loadImage(file.data, 
+      (newImg) =>
+      {
+      s.img = newImg;
+      predictorDraw();
+      s.info.html("Change the image by dropping a new one on the canvas, or:");
+      }, 
+      () => s.info.html("Chosen file is not a valid image.")
+    );
+  }else
+    s.info.html("Chosen file is not a valid image.")
 }
 
 function preload()
@@ -192,5 +196,7 @@ function setup()
     else switchButton.html("Edge mode");
     predictorDraw();
   });
-  s.info = createP("Change the image by dropping a new one on the canvas.");
+  s.info = createP("Change the image by dropping a new one on the canvas, or:");
+
+  let filePicker = createFileInput(handleFile);
 }
