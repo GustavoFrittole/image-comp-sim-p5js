@@ -124,22 +124,23 @@ function predictorDraw()
       if(s.counter[x])
       {
         let prob = s.counter[x]/(s.img.width*s.img.height);
-        y+=prob;
+        //y+=prob;
         ppm += prob*Math.log2(1/prob);
       }
-      console.log(x +" "+s.counter[x]+ " " + y);
+      //console.log(x +" "+s.counter[x]+ " " + y);
     }
-    s.paragraph.html("Vertical predictor mode: Red channel bpp: " + (ppm).toFixed(3));
+    s.paragraph.html("Horizontal predictor mode: Red channel bpp: " + (ppm).toFixed(3));
+
     ppm = 0;
-    for(let x=256, y=0; x<256+256; ++x)
+    for(let x=256, y=0; x<512; ++x)
     {
       if(s.counter[x])
       {
         let prob = s.counter[x]/(s.img.width*s.img.height);
-        y+=prob;
+        //y+=prob;
         ppm += prob*Math.log2(1/prob);
       }
-      console.log(x +" "+s.counter[x]+ " " + y);
+      //console.log(x +" "+s.counter[x]+ " " + y);
     }
     s.paragraph.html(s.paragraph.html() + ", original: " + (ppm).toFixed(3));
   }
@@ -187,7 +188,7 @@ function setup()
     .html("Vertical predictor mod");
   switchButton.mousePressed(() => { 
     s.mode = !s.mode; 
-    if(s.mode) switchButton.html("Vertical predictor mod");
+    if(s.mode) switchButton.html("Horizontal predictor");
     else switchButton.html("Edge mode");
     predictorDraw();
   });
